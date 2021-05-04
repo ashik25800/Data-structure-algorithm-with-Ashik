@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#define l &head
+typedef struct node Node;
+//here the 'struct node' changed into Node name funny huh?
+
+struct node
+{
+    int data;
+    Node *next;
+};
+
+Node *create_node(int value,Node *next)
+{
+    Node *new_node = (Node*)(malloc(sizeof(Node)));
+
+    new_node->data=value;
+    new_node->next=next;
+
+    return new_node;
+}
+
+void append(int value,Node **head)
+{
+    Node *new_node = (Node*)(malloc(sizeof(Node)));
+    new_node=create_node(value,NULL);
+    Node *dummy_head=*head;
+
+    if (*head == NULL)
+    {
+        *head=new_node;
+        return;
+    }
+    else
+    {
+        while(dummy_head->next!=NULL)
+            dummy_head=dummy_head->next;
+        dummy_head->next=new_node;
+        return;
+    }
+
+
+
+}
+
+void prepend(int data,Node **head)
+{
+    Node *new_node= create_node(data,*head);
+    *head=new_node;
+
+}
+
+
+void print(Node *head)
+{
+    if (head == NULL)
+    {
+        printf("Nothing is here.\n");
+        return;
+    }
+    Node *current_node=head;
+
+    while(current_node->next!=NULL)
+    {
+
+        printf("%d      %p\n",current_node->data,current_node->next);
+        current_node=current_node->next;
+
+    }
+    printf("%d      %p\n\n\n",current_node->data,current_node->next);
+}
+
+
+int main()
+{
+    Node *head,*n,*m,*p,*q;
+    head = (Node*)(malloc(sizeof(Node)));
+    head = NULL;
+
+    while(1)
+    {
+        int a;
+        printf("1 : Prepend 2 : Append 3 : Show all data :-> ");
+        scanf("%d",&a);
+        if(a==1)
+        {
+            int x;
+            printf("Prepend Data : ");
+            scanf("%d",&x);
+            prepend(x,l);
+        }
+        else if(a==2)
+        {
+            int x;
+            printf("Append Data : ");
+            scanf("%d",&x);
+            append(x,l);
+
+
+        }
+        else if(a==3)
+        {
+            printf("\n\nAll linked data\nData    Location\n");
+            print(head);
+        }
+        else break;
+    }
+
+
+
+    return 0;
+}
