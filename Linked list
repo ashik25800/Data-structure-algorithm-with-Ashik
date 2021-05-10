@@ -82,6 +82,16 @@ void del(int value,Node **head)
 {
 
     Node *current=*head;
+    if(current==NULL)
+        {
+            printf("Nothing here to delete !\n");
+            return;
+        }
+    if(current->next==NULL && current->data!=value)
+    {
+        printf("Not fount !\n");
+        return;
+    }
     if(current->data==value)
     {
         *head=current->next;
@@ -92,7 +102,7 @@ void del(int value,Node **head)
 
     while((current->next)->data!=value)
     {
-        if(current->next==NULL)
+        if((current->next)->next==NULL)
         {
             printf("Not found.\n\n");
             return;
@@ -106,6 +116,28 @@ void del(int value,Node **head)
 
 }
 
+//reversing a linked list without using any space and time complexity is O(n)
+void rvrs(Node **head)
+{
+    if(*head==NULL)
+    {
+        printf("ERROR !\n");
+        return;
+    }
+    else
+    {
+        Node *post = *head,*pre=NULL,*current;
+        while(post!=NULL)
+        {
+            current=post;
+            post=post->next;
+            current->next=pre;
+            pre=current;
+        }
+        *head=pre;
+    }
+}
+
 
 
 
@@ -117,7 +149,7 @@ void print(Node *head)
         return;
     }
     Node *current_node=head;
-    static int i=1;
+    int i=1;
     while(current_node->next!=NULL)
     {
 
@@ -152,7 +184,7 @@ int main()
     while(1)
     {
         int a;
-        printf("1: Prepend 2: Append 3: Node after insert\n4: Delete selected node 5: Show all data (6 for search):-> ");
+        printf("1: Prepend 2: Append 3: Node after insert\n4: Delete selected node 5: Show all data (54): For reverse (6 for search):-> ");
         scanf("%d",&a);
         if(a==1)
         {
@@ -202,6 +234,10 @@ int main()
             if(n==NULL)printf("Not found! \n\n");
             else
             printf("%d     %p\n\n",n->data,n->next);
+        }
+        else if(a==54)
+        {
+            rvrs(&head);
         }
         else break;
     }
